@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: web-svc
+  labels:
+    run: node-web
+spec:
+  type: LoadBalancer
+  ports:
+  - port: 80
+    targetPort: 8090
+  selector:
+    run: node-web
+
+# Use it when deploying to a cloud provider.
+# k get nodes -o jsonpath='{.items[*].spec.podCIDR}'

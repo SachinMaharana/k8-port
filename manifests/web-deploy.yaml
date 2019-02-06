@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: node-web-deploy
+  labels:
+    app: devevopment
+spec:
+  selector:
+    matchLabels:
+      run: node-web
+
+  replicas: 2
+
+  minReadySeconds: 10
+
+  strategy:
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 0
+    type: RollingUpdate
+
+  template:
+    metadata: 
+      labels:
+        run: node-web
+    spec:
+      containers:
+      - image: sachinnicky/node-web:v0.1.0
+        name: node-web-container
+        ports:
+        - containerPort: 8090 
